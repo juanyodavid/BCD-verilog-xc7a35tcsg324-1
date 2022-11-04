@@ -1,0 +1,84 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x15b6065a0 .scope module, "simulation" "simulation" 2 2;
+ .timescale 0 0;
+v0x600002d78990_0 .var "A", 3 0;
+v0x600002d78a20_0 .var "B", 3 0;
+v0x600002d78ab0_0 .var/i "i", 31 0;
+v0x600002d78b40_0 .var/i "j", 31 0;
+v0x600002d78bd0_0 .net "out", 3 0, L_0x600002e781e0;  1 drivers
+S_0x15b6045d0 .scope module, "uut" "bcdflow" 2 6, 3 1 0, S_0x15b6065a0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 4 "X";
+    .port_info 1 /INPUT 4 "Y";
+    .port_info 2 /OUTPUT 4 "Output";
+v0x600002d78510_0 .net "Output", 3 0, L_0x600002e781e0;  alias, 1 drivers
+v0x600002d785a0_0 .net "X", 3 0, v0x600002d78990_0;  1 drivers
+v0x600002d78630_0 .net "Y", 3 0, v0x600002d78a20_0;  1 drivers
+L_0x150078010 .functor BUFT 1, C4<1001>, C4<0>, C4<0>, C4<0>;
+v0x600002d786c0_0 .net/2u *"_ivl_2", 3 0, L_0x150078010;  1 drivers
+v0x600002d78750_0 .net *"_ivl_4", 0 0, L_0x600002e780a0;  1 drivers
+L_0x150078058 .functor BUFT 1, C4<0110>, C4<0>, C4<0>, C4<0>;
+v0x600002d787e0_0 .net/2u *"_ivl_6", 3 0, L_0x150078058;  1 drivers
+v0x600002d78870_0 .net *"_ivl_8", 3 0, L_0x600002e78140;  1 drivers
+v0x600002d78900_0 .net "out", 3 0, L_0x600002e78000;  1 drivers
+L_0x600002e78000 .arith/sum 4, v0x600002d78990_0, v0x600002d78a20_0;
+L_0x600002e780a0 .cmp/gt 4, L_0x600002e78000, L_0x150078010;
+L_0x600002e78140 .arith/sum 4, L_0x600002e78000, L_0x150078058;
+L_0x600002e781e0 .functor MUXZ 4, L_0x600002e78000, L_0x600002e78140, L_0x600002e780a0, C4<>;
+    .scope S_0x15b6065a0;
+T_0 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002d78ab0_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002d78b40_0, 0, 32;
+    %end;
+    .thread T_0;
+    .scope S_0x15b6065a0;
+T_1 ;
+    %vpi_call 2 8 "$dumpfile", "flowWave.vcd" {0 0 0};
+    %vpi_call 2 9 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x15b6065a0 {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002d78ab0_0, 0, 32;
+T_1.0 ;
+    %load/vec4 v0x600002d78ab0_0;
+    %cmpi/s 16, 0, 32;
+    %jmp/0xz T_1.1, 5;
+    %load/vec4 v0x600002d78ab0_0;
+    %pad/s 4;
+    %store/vec4 v0x600002d78990_0, 0, 4;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002d78b40_0, 0, 32;
+T_1.2 ;
+    %load/vec4 v0x600002d78b40_0;
+    %cmpi/s 16, 0, 32;
+    %jmp/0xz T_1.3, 5;
+    %load/vec4 v0x600002d78b40_0;
+    %pad/s 4;
+    %store/vec4 v0x600002d78a20_0, 0, 4;
+    %delay 10, 0;
+    %load/vec4 v0x600002d78b40_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600002d78b40_0, 0, 32;
+    %jmp T_1.2;
+T_1.3 ;
+    %load/vec4 v0x600002d78ab0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600002d78ab0_0, 0, 32;
+    %jmp T_1.0;
+T_1.1 ;
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "bcdflow_sim.v";
+    "./bcd.v";
